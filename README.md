@@ -1,10 +1,14 @@
-# 🛡️ Windows Security Monitoring and Incident Investigation using Splunk
+# 🛡️ SOC-Lab
+
+# Windows Security Monitoring and Incident Investigation using Splunk
 
 ## Overview
 
-This project demonstrates the implementation of a Security Operations Center (SOC) lab using **Splunk Enterprise**, **Splunk Universal Forwarder**, and a **Windows Virtual Machine** to collect, monitor, and investigate Windows Security Event Logs.
+This project demonstrates the implementation of a basic Security Operations Center (SOC) lab using **Splunk Enterprise**, **Splunk Universal Forwarder**, and a **Windows Virtual Machine**.
 
-The objective of this project is to centralize Windows Security logs, monitor authentication activities, investigate security-related events, and gain hands-on experience with Security Information and Event Management (SIEM) technologies using Splunk.
+The objective of this project is to centralize Windows Security Event Logs, monitor authentication activities, and investigate security-related events using Splunk Enterprise as a Security Information and Event Management (SIEM) platform.
+
+Windows Security Event Logs are forwarded to Splunk Enterprise using Splunk Universal Forwarder and analyzed using Splunk Search Processing Language (SPL). This project provides hands-on experience in log collection, security monitoring, authentication analysis, and basic incident investigation.
 
 ---
 
@@ -15,7 +19,7 @@ The objective of this project is to centralize Windows Security logs, monitor au
       (Windows Security Event Logs)
                     │
                     │
-    Splunk Universal Forwarder
+     Splunk Universal Forwarder
                     │
               TCP Port 9997
                     │
@@ -23,7 +27,7 @@ The objective of this project is to centralize Windows Security logs, monitor au
            Splunk Enterprise
               (index=main)
                     │
-      Searches • Reports • Analysis
+      Search • Investigation • Analysis
 ```
 
 ---
@@ -34,39 +38,21 @@ The objective of this project is to centralize Windows Security logs, monitor au
 - Splunk Universal Forwarder
 - Windows Virtual Machine
 - Windows Event Viewer
-- Windows Security Logs
+- Windows Security Event Logs
 - Splunk Search Processing Language (SPL)
 
 ---
 
 # Project Objectives
 
-- Configure centralized Windows Security log collection.
-- Forward Windows Security logs to Splunk Enterprise.
+- Install and configure Splunk Enterprise.
+- Configure Splunk Universal Forwarder.
+- Collect Windows Security Event Logs.
+- Forward logs to Splunk Enterprise.
 - Monitor Windows authentication events.
-- Investigate successful and failed login attempts.
 - Analyze Windows Security Event IDs.
-- Perform security investigations using SPL queries.
-- Document security findings.
-
----
-
-# Security Scenario
-
-## Authentication Monitoring
-
-### Objective
-
-Monitor Windows authentication events to identify successful and failed login attempts.
-
-### Activities Performed
-
-- Installed and configured Splunk Enterprise.
-- Configured Splunk Universal Forwarder on the Windows machine.
-- Forwarded Windows Security Event Logs to Splunk Enterprise.
-- Generated authentication events for analysis.
-- Investigated security events using SPL queries.
-- Documented findings with screenshots.
+- Perform log analysis using SPL.
+- Practice basic SOC investigation techniques.
 
 ---
 
@@ -74,21 +60,22 @@ Monitor Windows authentication events to identify successful and failed login at
 
 | Event ID | Description |
 |----------|-------------|
-| **4624** | Successful Logon |
-| **4625** | Failed Logon |
-| **4720** | User Account Created |
-| **4726** | User Account Deleted |
-| **5379** | Credential Manager Credentials Read |
+| 4624 | Successful Logon |
+| 4625 | Failed Logon |
+| 4720 | User Account Created |
+| 4726 | User Account Deleted |
 
 ---
 
-# Splunk Searches
+# Splunk Searches Performed
 
-## View All Events
+## View All Indexed Events
 
 ```spl
 index=main
 ```
+
+---
 
 ## Windows Security Logs
 
@@ -96,17 +83,41 @@ index=main
 index=main sourcetype=WinEventLog:Security
 ```
 
-## Successful Login Detection
+---
+
+## Successful Login Events
 
 ```spl
 index=main EventCode=4624
 ```
 
-## Failed Login Detection
+---
+
+## Failed Login Events
 
 ```spl
 index=main EventCode=4625
 ```
+
+---
+
+## Count Events by Sourcetype
+
+```spl
+index=main
+| stats count by sourcetype
+```
+
+---
+
+## Failed Login Count by User
+
+```spl
+index=main EventCode=4625
+| stats count by Account_Name
+```
+
+---
 
 ## Failed Login Investigation
 
@@ -115,12 +126,7 @@ index=main EventCode=4625
 | table _time host Account_Name Source_Network_Address
 ```
 
-## Failed Login Statistics
-
-```spl
-index=main EventCode=4625
-| stats count by Account_Name
-```
+---
 
 ## User Account Created
 
@@ -128,16 +134,12 @@ index=main EventCode=4625
 index=main EventCode=4720
 ```
 
+---
+
 ## User Account Deleted
 
 ```spl
 index=main EventCode=4726
-```
-
-## Credential Manager Access
-
-```spl
-index=main EventCode=5379
 ```
 
 ---
@@ -148,78 +150,71 @@ The repository contains screenshots demonstrating:
 
 - Splunk Enterprise Search & Reporting
 - Windows Security Event Log Collection
-- All Indexed Events
-- Windows Security Log Source
-- Successful Login Investigation (Event ID 4624)
-- Failed Login Investigation (Event ID 4625)
-- Failed Login Statistics
+- All Indexed Events (`index=main`)
+- Windows Security Logs (`sourcetype=WinEventLog:Security`)
+- Successful Logon (Event ID 4624)
+- Failed Logon (Event ID 4625)
+- Event Count by Sourcetype
+- Failed Login Count by User
+- Failed Login Investigation
 - User Account Creation (Event ID 4720)
 - User Account Deletion (Event ID 4726)
-- Credential Manager Access (Event ID 5379)
 
 ---
 
 # Skills Demonstrated
 
 - Security Information and Event Management (SIEM)
+- Splunk Enterprise Administration
+- Splunk Universal Forwarder Configuration
+- Windows Security Event Monitoring
 - Windows Event Log Analysis
 - Log Collection and Forwarding
-- Splunk Search Processing Language (SPL)
 - Authentication Monitoring
-- Security Monitoring
+- Splunk Search Processing Language (SPL)
+- Log Analysis
 - Event Investigation
-- Incident Analysis
-- Security Documentation
+- Basic Incident Investigation
 
 ---
 
 # Learning Outcomes
 
-Through this project, I gained hands-on experience in:
+Through this project, I gained practical experience in:
 
-- Deploying Splunk Enterprise.
+- Installing and configuring Splunk Enterprise.
 - Configuring Splunk Universal Forwarder.
-- Centralizing Windows Security Event Logs.
-- Monitoring authentication activities.
-- Investigating Windows Security Event IDs.
+- Forwarding Windows Security Event Logs.
+- Monitoring Windows authentication events.
+- Investigating successful and failed login attempts.
 - Writing SPL queries for log analysis.
-- Performing basic SOC-style incident investigations.
-
----
-
-# Future Enhancements
-
-- Create interactive Splunk Dashboards.
-- Configure Alerts for repeated failed login attempts.
-- Monitor additional Windows Event IDs (4688, 4672, 4634).
-- Integrate Sysmon for enhanced endpoint visibility.
-- Add multiple Windows endpoints.
-- Perform network reconnaissance using Nmap.
-- Create correlation searches for threat detection.
+- Using `stats` commands to summarize event data.
+- Using `table` commands to investigate authentication events.
+- Understanding Windows Security Event IDs.
+- Performing basic SOC-style security investigations.
 
 ---
 
 # Repository Structure
 
 ```text
-windows-security-monitoring-splunk/
+SOC-Lab/
 │
 ├── README.md
 │
 ├── screenshots/
-│   ├── 01_All_Events.png
-│   ├── 02_Windows_Security_Logs.png
-│   ├── 03_Sourcetype_Count.png
-│   ├── 04_Failed_Login_4625.png
-│   ├── 05_Successful_Login_4624.png
-│   ├── 06_Failed_Login_Table.png
-│   ├── 07_Failed_Login_Statistics.png
-│   ├── 08_User_Created_4720.png
-│   ├── 09_User_Deleted_4726.png
-│   └── 10_Credential_Manager_5379.png
+│   ├── 01_index_main.png
+│   ├── 02_security_logs.png
+│   ├── 03_stats_sourcetype.png
+│   ├── 04_eventcode_4624.png
+│   ├── 05_eventcode_4625.png
+│   ├── 06_failed_login_table.png
+│   ├── 07_failed_login_stats.png
+│   ├── 08_eventcode_4720.png
+│   └── 09_eventcode_4726.png
 │
 ├── splunk_queries/
-│   └── authentication_queries.md
+│   └── queries.md
 │
 └── reports/
     └── investigation_notes.md
@@ -227,13 +222,26 @@ windows-security-monitoring-splunk/
 
 ---
 
-# Conclusion
+# Future Enhancements
 
-This project demonstrates practical experience in configuring a SIEM environment using Splunk Enterprise, collecting Windows Security Event Logs through Splunk Universal Forwarder, and investigating authentication-related events using SPL queries. It showcases foundational SOC Analyst skills in log collection, security monitoring, event analysis, and incident investigation within a controlled lab environment.
+- Build interactive Splunk dashboards.
+- Configure alerts for suspicious login activity.
+- Integrate Sysmon for enhanced endpoint visibility.
+- Monitor additional Windows Event IDs (4688, 4672, 4634).
+- Add multiple Windows endpoints for centralized monitoring.
+- Create correlation searches for advanced threat detection.
+- Integrate email alert notifications for critical events.
 
 ---
+
+# Conclusion
+
+This project demonstrates the implementation of a basic SIEM environment using Splunk Enterprise to collect, monitor, and analyze Windows Security Event Logs. By forwarding logs through Splunk Universal Forwarder and investigating authentication events using SPL queries, this project showcases foundational SOC Analyst skills in log collection, security monitoring, event analysis, and incident investigation.
+
+---
+
 ## Author
 
 **Rashid K**
 
-Cybersecurity | SOC Analyst | Splunk | Windows Security Monitoring
+**Cyber Security | SOC Analyst | Splunk | Windows Security Monitoring**

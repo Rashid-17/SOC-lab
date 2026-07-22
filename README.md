@@ -198,11 +198,9 @@ SOC-Lab/
 │   ├── 08_eventcode_4720.png
 │   └── 09_eventcode_4726.png
 │
-├── splunk_queries/
-│   └── queries.md
+├─── queries.md
 │
-└── reports/
-    └── investigation_notes.md
+└─── investigation_notes.md
 ```
 
 

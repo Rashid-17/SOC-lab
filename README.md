@@ -75,6 +75,10 @@ Windows Security Event Logs are forwarded to Splunk Enterprise using Splunk Univ
 index=main
 ```
 
+**Output**
+
+![View All Indexed Events](screenshots/01_index_main.png)
+
 ---
 
 ## Windows Security Logs
@@ -82,6 +86,10 @@ index=main
 ```spl
 index=main sourcetype=WinEventLog:Security
 ```
+
+**Output**
+
+![Windows Security Logs](screenshots/02_security_logs.png)
 
 ---
 
@@ -91,6 +99,10 @@ index=main sourcetype=WinEventLog:Security
 index=main EventCode=4624
 ```
 
+**Output**
+
+![Successful Login Events](screenshots/04_eventcode_4624.png)
+
 ---
 
 ## Failed Login Events
@@ -98,6 +110,10 @@ index=main EventCode=4624
 ```spl
 index=main EventCode=4625
 ```
+
+**Output**
+
+![Failed Login Events](screenshots/05_eventcode_4625.png)
 
 ---
 
@@ -108,6 +124,10 @@ index=main
 | stats count by sourcetype
 ```
 
+**Output**
+
+![Event Count by Sourcetype](screenshots/03_stats_sourcetype.png)
+
 ---
 
 ## Failed Login Count by User
@@ -116,6 +136,10 @@ index=main
 index=main EventCode=4625
 | stats count by Account_Name
 ```
+
+**Output**
+
+![Failed Login Count by User](screenshots/07_failed_login_stats.png)
 
 ---
 
@@ -126,6 +150,10 @@ index=main EventCode=4625
 | table _time host Account_Name Source_Network_Address
 ```
 
+**Output**
+
+![Failed Login Investigation](screenshots/06_failed_login_table.png)
+
 ---
 
 ## User Account Created
@@ -133,6 +161,10 @@ index=main EventCode=4625
 ```spl
 index=main EventCode=4720
 ```
+
+**Output**
+
+![User Account Created](screenshots/08_eventcode_4720.png)
 
 ---
 
@@ -142,7 +174,9 @@ index=main EventCode=4720
 index=main EventCode=4726
 ```
 
----
+**Output**
+
+![User Account Deleted](screenshots/09_eventcode_4726.png)
 
 # Screenshots
 

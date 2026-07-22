@@ -162,39 +162,6 @@ The repository contains screenshots demonstrating:
 
 ---
 
-# Skills Demonstrated
-
-- Security Information and Event Management (SIEM)
-- Splunk Enterprise Administration
-- Splunk Universal Forwarder Configuration
-- Windows Security Event Monitoring
-- Windows Event Log Analysis
-- Log Collection and Forwarding
-- Authentication Monitoring
-- Splunk Search Processing Language (SPL)
-- Log Analysis
-- Event Investigation
-- Basic Incident Investigation
-
----
-
-# Learning Outcomes
-
-Through this project, I gained practical experience in:
-
-- Installing and configuring Splunk Enterprise.
-- Configuring Splunk Universal Forwarder.
-- Forwarding Windows Security Event Logs.
-- Monitoring Windows authentication events.
-- Investigating successful and failed login attempts.
-- Writing SPL queries for log analysis.
-- Using `stats` commands to summarize event data.
-- Using `table` commands to investigate authentication events.
-- Understanding Windows Security Event IDs.
-- Performing basic SOC-style security investigations.
-
----
-
 # Repository Structure
 
 ```text
@@ -220,28 +187,8 @@ SOC-Lab/
     └── investigation_notes.md
 ```
 
----
-
-# Future Enhancements
-
-- Build interactive Splunk dashboards.
-- Configure alerts for suspicious login activity.
-- Integrate Sysmon for enhanced endpoint visibility.
-- Monitor additional Windows Event IDs (4688, 4672, 4634).
-- Add multiple Windows endpoints for centralized monitoring.
-- Create correlation searches for advanced threat detection.
-- Integrate email alert notifications for critical events.
-
----
-
 # Conclusion
 
 This project demonstrates the implementation of a basic SIEM environment using Splunk Enterprise to collect, monitor, and analyze Windows Security Event Logs. By forwarding logs through Splunk Universal Forwarder and investigating authentication events using SPL queries, this project showcases foundational SOC Analyst skills in log collection, security monitoring, event analysis, and incident investigation.
 
 ---
-
-## Author
-
-**Rashid K**
-
-**Cyber Security | SOC Analyst | Splunk | Windows Security Monitoring**
